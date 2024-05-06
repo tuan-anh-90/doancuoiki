@@ -1,0 +1,145 @@
+.box {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: auto;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ccc;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+thead th:nth-child(1) {
+  width: 5%;
+}
+
+thead th:nth-child(2) {
+  width: 15%;
+}
+
+thead th:nth-child(3) {
+  width: 15%;
+}
+
+thead th:nth-child(4) {
+  width: 15%;
+}
+
+thead th:nth-child(5) {
+  width: 15%;
+}
+
+thead th:nth-child(6) {
+  width: 15%;
+}
+
+thead th:nth-child(7) {
+  width: 20%;
+}
+
+button {
+  margin: 5px 5px;
+  padding: 8px 16px;
+  background-color: #358399;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#createUserBtn {
+  margin-bottom: 30px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 5%;
+  bottom: 30%;
+  left: 30%;
+  right: 30%;
+  width: 40%;
+  height: 80%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.popup-Edit {
+  display: none;
+  position: fixed;
+  top: 10%;
+  bottom: 30%;
+  left: 30%;
+  right: 30%;
+  width: 40%;
+  height: 60%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.popup-content,
+.popup-content-Edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.popup-content-Edit {
+  height: 100%;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.form-control,
+.form-control-Edit {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-left: 4%;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

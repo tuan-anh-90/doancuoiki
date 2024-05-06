@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>Admin|ListEvent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="css/search.css" rel="stylesheet" type="text/css" /> -->
+    <link href="icons/style.css" rel="stylesheet" type="text/css" />
+    <link href="js/daypilot/popuphome.css" rel="stylesheet" type="text/css" />
+    <th:block th:replace="boxtabbarAdmin ::  link-css"></th:block>
+  </head>
+  <body>
+    <th:block th:replace="boxtabbarAdmin ::  header"></th:block>
+    <style>
+      .box-1 {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+      }
+      .searchType {
+        height: 30px;
+        margin-top: 20px;
+        margin-left: 10px;
+      }
+    </style>
+    <div class="boxHome">
+      <!-- <span class="Name" id="userNameDisplay">Nội dung của lớp Name</span> -->
+      <div
+        class="main"
+        style="
+          display: flex;
+          margin-left: 100px;
+          margin-right: 20px;
+          margin-top: 20px;
+        "
+      >
+        <div style="margin-right: 10px">
+          <div id="nav"></div>
+          <div class="search-container">
+            <div class="box-1">
+              <h2>Search</h2>
+              <select
+                id="searchType"
+                class="searchType"
+                onchange="changeInputType(this)"
+              >
+                <option value="mail">Mail</option>
+                <option value="location">Location</option>
+              </select>
+            </div>
+            <div class="box-2">
+              <input
+                type="text"
+                id="searchInput"
+                class="searchInput"
+                placeholder="Search UserID or Date"
+              />
+              <button class="search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+          <div class="toolbar" style="margin-top: 10px">
+            <!-- <button id="previous" class="previous">
+              <i class="fa-solid fa-left-long"></i>
+            </button>
+            <button id="next" class="next">
+              <i class="fa-solid fa-right-long"></i>
+            </button> -->
+          </div>
+        </div>
+
+        <div class="right">
+          <div id="dp"></div>
+        </div>
+        <!-- <style>
+         .previous,
+          .next {
+            margin-bottom: 20px;
+          }
+        </styl>  -->
+      </div>
+
+      <!-- //popup create -->
+      <div class="popup-create">
+        <div class="overlay"></div>
+        <div id="event-popup" class="event-popup" style="display: none">
+          <!-- Nội dung thanh popup -->
+          <label for="event-type">Type of work:</label>
+          <input type="text" id="event-type" />
+
+          <label for="event-location">Location:</label>
+          <input type="text" id="event-location" />
+
+          <label for="event-notes">Note:</label>
+          <textarea id="event-notes"></textarea>
+
+          <button id="create-event-button">Create</button>
+          <button id="cancel-event-button">Cancel</button>
+        </div>
+      </div>
+
+      <!-- popup view  -->
+      <div class="popup-view">
+        <div class="overlay-view"></div>
+        <div
+          id="event-popup-view"
+          class="event-popup-view"
+          style="display: none"
+        >
+          <!-- Nội dung thanh popup -->
+          <label for="event-iduser">Id user:</label>
+          <input type="text" id="event-iduser" />
+
+          <label for="event-ten">Type of work:</label>
+          <input type="text" id="event-ten" />
+
+          <label for="event-diadiem">Location:</label>
+          <input type="text" id="event-diadiem" />
+
+          <label for="event-ghichu">Note:</label>
+          <input type="text" id="event-ghichu" />
+
+          <button id="cancel-view-button">Cancel</button>
+          <!-- <button id="delete-event-button">Xóa</button> -->
+        </div>
+      </div>
+
+      <!-- DayPilot library -->
+      <script src="js/daypilot/daypilot-all.min.js"></script>
+
+      <script>
+        const datePicker = new DayPilot.Navigator("nav", {
+          showMonths: 1,
+          skipMonths: 1,
+          selectMode: "week",
+          onTimeRangeSelected: (args) => {
+            dp.startDate = args.day;
+            dp.update();
+            dp.events.load("/api/event/all");
+          },
+        });
+        datePicker.init();
+
+        const dp = new DayPilot.Calendar("dp", {
+          viewType: "Week",
+          onTimeRangeSelected: async (args) => {
+            const cancelEventButton = document.getElementById(
+              "cancel-event-button"
+            );
+            cancelEventButton.addEventListener("click", () => {
+              // Close the event popup
+              eventPopup.style.display = "none";
+            });
+
+            // Clear the selection
+            dp.clearSelection();
+          },
+          onEventMove: async (args) => {
+            const params = {
+              id: args.e.id(),
+              start: args.newStart,
+              end: args.newEnd,
+            };
+            const { data } = await DayPilot.Http.post(
+              "/api/events/move",
+              params
+            );
+            console.log("Event moved");
+          },
+          onEventResize: async (args) => {
+            const params = {
+              id: args.e.id(),
+              start: args.newStart,
+              end: args.newEnd,
+            };
+            const { data } = await DayPilot.Http.post(
+              "/api/events/move",
+              params
+            );
+            console.log("Event resized");
+          },
+          //Bật view popup
+          onEventClick: (args) => {
+            //Định dạng date time
+            function formatDateTime(dateTime) {
+              const options = {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              };
+              return new Intl.DateTimeFormat("vi-VN", options).format(
+                new Date(dateTime)
+              );
+            }
+
+            //lấy thông tin popup
+            const overlay = document.querySelector(".overlay-view");
+            const eventPopup = document.querySelector(".event-popup-view");
+
+            // Lấy thông tin của sự kiện
+            const eventName = args.e.data.text;
+            const eventDiadiem = args.e.data.eventLocation;
+            const eventGhichu = args.e.data.eventNotes;
+            const eventIduser = args.e.data.user.name;
+
+            // Hiển thị thông tin của sự kiện trong popup\
+            document.getElementById("event-iduser").value = eventIduser;
+
+            document.getElementById("event-ten").value = eventName;
+            document.getElementById("event-diadiem").value = eventDiadiem; //định dạng format
+            document.getElementById("event-ghichu").value = eventGhichu; //định dạng format
+
+            // Hiển thị popup
+            overlay.style.display = "block";
+            eventPopup.style.display = "block";
+
+            // Handle the delete event button click in popup view
+            const deleteEventButton = document.getElementById(
+              "delete-event-button"
+            );
+            // deleteEventButton.addEventListener("click", async () => {
+            //   // Lấy id của sự kiện
+            //   const eventId = args.e.id();
+            //   // Gọi hàm xóa sự kiện trong app
+            //   app.deleteEvent(args.e);
+            //   // Đóng popup
+            //   overlay.style.display = "none";
+            //   eventPopup.style.display = "none";
+            // });
+
+            //Sự kiện đóng popup view
+            const cancelEventButton =
+              document.getElementById("cancel-view-button");
+            cancelEventButton.addEventListener("click", async () => {
+              // Đóng popup
+              overlay.style.display = "none";
+              eventPopup.style.display = "none";
+            });
+          },
+
+          onBeforeEventRender: (args) => {
+            args.data.barColor = args.data.color;
+            args.data.areas = [
+              {
+                top: 2,
+                right: 2,
+                icon: "icon-triangle-down",
+                visibility: "Visible",
+                action: "ContextMenu",
+                style:
+                  "font-size: 12px; background-color: #f9f9f9; border: 1px solid #ccc; padding: 2px 2px 0px 2px; cursor:pointer;",
+              },
+            ];
+          },
+
+          // contextMenu: new DayPilot.Menu({
+          //   items: [
+          //     {
+          //       text: "Cuộc họp",
+          //       icon: "icon icon-blue",
+          //       color: "#1066a8",
+          //       onClick: (args) =>
+          //         app.updateColor(args.source, args.item.color),
+          //     },
+          //     {
+          //       text: "Công tác",
+          //       icon: "icon icon-green",
+          //       color: "#6aa84f",
+          //       onClick: (args) =>
+          //         app.updateColor(args.source, args.item.color),
+          //     },
+          //     {
+          //       text: "Việc cần làm",
+          //       icon: "icon icon-yellow",
+          //       color: "#f1c232",
+          //       onClick: (args) =>
+          //         app.updateColor(args.source, args.item.color),
+          //     },
+          //     {
+          //       text: "Ngày nghỉ",
+          //       icon: "icon icon-red",
+          //       color: "#cc0000",
+          //       onClick: (args) =>
+          //         app.updateColor(args.source, args.item.color),
+          //     },
+          //   ],
+          // }),
+        });
+        dp.init();
+
+        const app = {
+          init: () => {
+            dp.events.load("/api/event/all");
+          },
+          deleteEvent: async (e) => {
+            const confirmation = await DayPilot.Modal.confirm(
+              "Do you want to delete this event?"
+            );
+            if (confirmation.canceled) {
+              return;
+            }
+            const params = {
+              id: e.id(),
+            };
+            const { data } = await DayPilot.Http.post(
+              "/api/events/delete",
+              params
+            );
+            dp.events.remove(e);
+            console.log("Event deleted");
+            window.location.reload();
+          },
+
+          updateColor: async (e, color) => {
+            const params = {
+              id: e.id(),
+              color: color,
+            };
+            const { data } = await DayPilot.Http.post(
+              "/api/events/setColor",
+              params
+            );
+            e.data.color = color;
+            dp.events.update(e);
+            console.log("Color updated");
+          },
+        };
+        app.init();
+
+        // // Xử lý sự kiện cho nút "Previous"
+        // const previousButton = document.getElementById("previous");
+        // previousButton.addEventListener("click", () => {
+        //   const current = datePicker.selectionDay;
+        //   datePicker.select(current.addDays(-7));
+        // });
+
+        // // Xử lý sự kiện cho nút "Next"
+        // const nextButton = document.getElementById("next");
+        // nextButton.addEventListener("click", () => {
+        //   const current = datePicker.selectionDay;
+        //   datePicker.select(current.addDays(7));
+        // });
+
+        //search
+        const searchBtn = document.querySelector(".search-btn");
+
+        searchBtn.addEventListener("click", async () => {
+          const searchType = document.getElementById("searchType").value; // Lấy giá trị của select box
+          const searchTerm = document.getElementById("searchInput").value; // Lấy giá trị của input
+
+          let apiUrl = "";
+
+          if (searchType === "mail") {
+            // Kiểm tra nếu loại tìm kiếm là "mail"
+            const currentDate = new Date();
+            const startOfWeek =
+              DayPilot.Date.today(currentDate).firstDayOfWeek();
+            const endOfWeek = startOfWeek.addDays(6);
+            apiUrl = `/api/events/search?start=${startOfWeek}&end=${endOfWeek}&email=${searchTerm}`;
+          } else if (searchType === "location") {
+            // Thực hiện tìm kiếm theo địa điểm ở đây (ví dụ: apiUrl = `/api/events/searchByLocation?location=${searchTerm}`)
+            const currentDate = new Date();
+            const startOfWeek =
+              DayPilot.Date.today(currentDate).firstDayOfWeek();
+            const endOfWeek = startOfWeek.addDays(6);
+            apiUrl = `/api/events/searchLocation?start=${startOfWeek}&end=${endOfWeek}&eventLocation=${searchTerm}`;
+          }
+
+          if (apiUrl) {
+            try {
+              const response = await fetch(apiUrl, {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              });
+
+              if (response.ok) {
+                const userEvents = await response.json();
+                dp.events.list = userEvents;
+                dp.update();
+              } else {
+                console.log("Error loading events");
+              }
+            } catch (error) {
+              console.error("Error loading events", error);
+            }
+          } else {
+            console.log("Invalid search type");
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>

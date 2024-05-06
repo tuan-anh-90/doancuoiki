@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+    <style>
+      html,
+      body {
+        --border-color: #fff;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        color: #222;
+        font-family: Poppins;
+      }
+
+      .container {
+        height: 100%;
+        align-content: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card {
+        width: 400px;
+        background-color: #9bc0d8 !important;
+        height: 70%;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card-header {
+        font-size: x-large;
+        font-weight: bold;
+      }
+
+      .social_icon span {
+        font-size: 60px;
+        margin-left: 10px;
+        color: #ffc312;
+      }
+
+      .social_icon span:hover {
+        color: white;
+        cursor: pointer;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .input-group-prepend span {
+        color: #777;
+        display: flex;
+        margin-right: 15px;
+        cursor: pointer;
+      }
+
+      input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background-color: transparent;
+        padding: 20px;
+        font-family: Poppins;
+        outline: none;
+      }
+
+      .remember {
+        color: white;
+        margin-top: 10px;
+      }
+
+      .remember input {
+        margin-left: 5px;
+      }
+
+      .login_btn {
+        background-color: #3d5868;
+        width: 100%;
+        border-radius: 10px;
+        height: 50px;
+        border: none;
+        font-family: Poppins;
+        box-shadow: 0 10px 20px #7da6be;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        transition: 0.5s;
+        color: #fff;
+      }
+
+      .login_btn:active {
+        box-shadow: none;
+        transform: translateY(5px);
+      }
+
+      .links {
+        color: white;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .links a {
+        margin-left: 4px;
+      }
+
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30%;
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .popup-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        position: relative;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .form-control {
+        margin-bottom: 20px;
+        border: none;
+      }
+
+      label {
+        font-family: Poppins;
+        font-weight: bold;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      input[type="email"] {
+        width: 80%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #3d5868;
+        width: 30%;
+        border-radius: 10px;
+        height: 50px;
+        border: none;
+        font-family: Poppins;
+        box-shadow: 0 10px 20px #81afca;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        transition: 0.5s;
+        color: #fff;
+      }
+
+      button:active {
+        box-shadow: none;
+        transform: translateY(5px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Hello Again!</h3>
+        </div>
+        <div class="card-body">
+          <form action="/login" method="post">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fas fa-user"></i
+                ></span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                name="username"
+                placeholder="Enter Email"
+              />
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                placeholder="Enter Password"
+              />
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Login" class="btn login_btn" />
+            </div>
+          </form>
+        </div>
+        <div class="forgot-password">
+          <a href="#" onclick="openForgotPasswordPopup()">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- The "Forgot Password" Popup -->
+    <div class="popup" id="popup">
+      <div class="popup-content">
+        <span
+          id="closePopupBtn"
+          class="close-btn"
+          onclick="closeForgotPasswordPopup()"
+          >&times;</span
+        >
+        <h2>Forgot Password</h2>
+        <form id="forgotPasswordForm">
+          <div class="form-control">
+            <label for="forgotEmail">Email:</label>
+            <input type="email" id="forgotEmail" name="forgotEmail" required />
+          </div>
+          <div class="form-control">
+            <button type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      //Reset password
+      async function sendResetPasswordEmail() {
+        const email = document.getElementById("forgotEmail").value;
+
+        try {
+          const apiUrl = `http://localhost:8081/api/reset-password/sendResetPasswordEmail?email=${email}`;
+          const response = await fetch(apiUrl, {
+            method: "POST", // Since your API might be configured to accept POST
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          console.log(response);
+          if (response.ok) {
+            alert("Đã gửi");
+            closeForgotPasswordPopup();
+          } else {
+            const errorMessage = await response.text();
+            alert("Có lỗi xảy ra: " + errorMessage);
+          }
+        } catch (error) {
+          console.error("Có lỗi xảy ra:", error);
+          alert("Có lỗi xảy ra khi gửi email đặt lại mật khẩu.");
+        }
+      }
+
+      document
+        .getElementById("forgotPasswordForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevents the form from submitting and refreshing the page
+          sendResetPasswordEmail();
+        });
+    </script>
+    <script>
+      function openForgotPasswordPopup() {
+        const popup = document.getElementById("popup");
+        popup.style.display = "block";
+      }
+
+      function closeForgotPasswordPopup() {
+        const popup = document.getElementById("popup");
+        popup.style.display = "none";
+      }
+    </script>
+  </body>
+</html>

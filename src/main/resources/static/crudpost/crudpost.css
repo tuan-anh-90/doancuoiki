@@ -1,0 +1,237 @@
+.post-container {
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    margin-left: 120px;
+    margin-right: 30px;
+}
+
+.crud-buttons {
+    height: 77px;
+    background-color: #c8c6c6;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+table {
+    margin-top: 40px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+thead th:nth-child(1) {
+    width: 5%;
+}
+
+thead th:nth-child(2) {
+    width: 30%;
+}
+
+thead th:nth-child(3) {
+    width: 30%;
+}
+
+thead th:nth-child(4) {
+    width: 17%;
+}
+
+thead th:nth-child(5) {
+    width: 18%;
+}
+
+
+button {
+    padding: 10px;
+    margin-top: 15px;
+    margin-right: 10px;
+    width: 120px;
+    height: 50px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+button i {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+#crud-buttons {
+    margin-bottom: 10px;
+}
+
+#crud-buttons button {
+    transition: background-color 0.3s;
+}
+
+#crud-buttons button:hover {
+    filter: brightness(90%);
+}
+
+#crud-buttons button.add {
+    background-color: #4caf50;
+    /* Màu xanh lá cây */
+    color: white;
+}
+
+#crud-buttons button.edit {
+    background-color: #3498db;
+    /* Màu xanh dương */
+    color: white;
+}
+
+#crud-buttons button.view {
+    background-color: #808080;
+    /* Màu xám */
+    color: white;
+}
+
+#crud-buttons button.delete {
+    background-color: #e74c3c;
+    /* Màu đỏ */
+    color: white;
+}
+
+/* CSS */
+#postList tr.selected {
+    background-color: #c8c6c6;
+}
+
+/* popup */
+/* CSS */
+.popup {
+    display: none;
+    position: fixed;
+    width: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    z-index: 3;
+}
+
+.popupView {
+    display: none;
+    position: fixed;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    z-index: 3;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Màu xám nhẹ */
+    z-index: 2;
+    /* Đặt lớp phủ ở trên popup */
+}
+
+/* Ẩn/mở lớp phủ khi click */
+.popupView-open .overlay {
+    display: block;
+}
+
+.popupView-closed .overlay {
+    display: none;
+}
+
+.popup-open .overlay {
+    display: block;
+}
+
+.popup-closed .overlay {
+    display: none;
+}
+
+.popup form {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup label {
+    margin-bottom: 10px;
+}
+
+.popup input,
+.popup textarea,
+.popup button {
+    margin-bottom: 15px;
+}
+
+.popup button i {
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.popup input {
+    font-size: 16px;
+    height: 25px;
+}
+
+.popup textarea {
+    font-size: 13px;
+    height: 50px;
+}
+
+.popup button {
+    font-size: 18px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 50px;
+    width: 140px;
+
+}
+
+.popup .button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup button:last-child {
+    background-color: #e74c3c;
+}
+
+.popup button:hover {
+    filter: brightness(90%);
+}
+
+/* POPUP VIEW */
+/* Style the popup */
+/* Style the close button */
+.close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}

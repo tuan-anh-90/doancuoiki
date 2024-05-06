@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User CRUD</title>
+    <link rel="stylesheet" type="text/css" href="edit/edit.css">
+    <script src="edit/edit.js"></script>
+    <script src="js/daypilot/boxtabADMIN.js"></script>
+</head>
+<body>
+    <div class="boxTabbar">
+
+    </div>
+    <div class="box">
+        <div class="container">
+            <h1>User CRUD</h1>
+            <button id="createUserBtn">Create User</button>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody id="userList">
+                    <!-- Dữ liệu người dùng sẽ được thêm sau bằng JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    
+        <div class="popup" id="popup">
+            <div class="popup-content">
+                <span id="closePopupBtn" class="close-btn">&times;</span>
+                <h2>Create User</h2>
+                <form id="userForm">
+                    <div class="form-control">
+                        <label for="newName">Name:</label>
+                        <input type="text" id="newName" name="newName" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="newEmail">Email:</label>
+                        <input type="text" id="newEmail" name="newEmail" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="newPassword">Password:</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                    </div>
+                    <div class="form-control">
+                        <button type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="popup-Edit" id="popup-Edit">
+            <div class="popup-content-Edit">
+                <span id="closePopupBtn-Edit" class="close-btn">&times;</span>
+                <h2>Edit User</h2>
+                <form id="userForm-Edit">
+                    <div class="form-control-Edit">
+                        <label for="newName-Edit">New Name:</label>
+                        <input type="text" id="newName-Edit" name="newName-Edit" required>
+                    </div>
+                    <div class="form-control-Edit">
+                        <label for="newEmail-Edit">New Email:</label>
+                        <input type="text" id="newEmail-Edit" name="newEmail-Edit" required>
+                    </div>
+                    <!-- <div class="form-control-Edit">
+                        <label for="newPassword-Edit">Password:</label>
+                        <input type="password" id="newPassword-Edit" name="newPassword-Edit" required>
+                    </div> -->
+                    <div class="form-control">
+                        <button type="submit-Edit">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

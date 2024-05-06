@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      th:fragment="link-css"
+      rel="stylesheet"
+      th:href="@{/tabbar/tabbaruser.css}"
+    />
+    <link
+      th:fragment="link-css"
+      rel="stylesheet"
+      th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css}"
+    />
+    <script
+      th:fragment="jquery-cdn"
+      th:src="https://code.jquery.com/jquery-3.6.4.min.js"
+    ></script>
+  </head>
+  <body>
+    <header th:fragment="header">
+      <div class="navbar">
+        <!-- <div class="search-bar">
+          <input class="texttimkiem" type="text" placeholder="Tìm kiếm..." />
+          <button class="btntimkiem" type="button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div> -->
+        <div class="logout-button">
+          <button type="button" id="logoutButton">
+            LogOut <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            var logoutButton = document.getElementById("logoutButton");
+
+            logoutButton.addEventListener("click", function () {
+              // Chuyển hướng đến trang login
+              window.location.href = "/logout";
+            });
+          });
+        </script>
+      </div>
+      <div class="classheard"></div>
+      <div class="classbody">
+        <div class="boxtabbar">
+          <nav class="tabbar">
+            <ul>
+              <li>
+                <a href="/homeadmin">
+                  <img src="/img/logo.png" alt="Logo" style="height: 40px" />
+                </a>
+              </li>
+
+              <li>
+                <a href="/homeadmin">
+                  <i class="fa-solid fa-house"></i> <strong>Home</strong>
+                </a>
+              </li>
+              <li>
+                <a href="/crudpost">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <strong>Post</strong>
+                </a>
+              </li>
+              <li>
+                <a href="/listUser">
+                  <i class="fa-solid fa-users"></i>
+                  <strong>User</strong>
+                </a>
+              </li>
+              <li>
+                <a href="/editdon">
+                  <i class="fa-solid fa-file-pen"></i>
+                  <strong>Form</strong>
+                </a>
+              </li>
+
+              <!-- <li>
+                <a href="/chat">
+                  <i class="fa-solid fa-headset"></i>
+                  <strong>Chat</strong>
+                </a>
+              </li> -->
+              <!-- <li>
+                <a href="/search">
+                  <i class="fa-brands fa-searchengin"></i>
+                  <strong>Search</strong>
+                </a>
+              </li> -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div th:insert="~{::{content}}">
+      <!-- noi dung trang con -->
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var logoutButton = document.getElementById("logoutButton");
+
+      logoutButton.addEventListener("click", function () {
+        // Chuyển hướng đến trang login
+        window.location.href = "/login";
+      });
+    });
+  </script>
+</html>

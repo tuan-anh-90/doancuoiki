@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="login/login.css">
+
+	<title>Login</title>
+</head>
+<body>
+	<div class="login">
+		<div class="title">Hello Again!</div>
+		<div class="group">
+			<input type="text" placeholder="Enter Email">
+		</div>
+		<div class="group">
+			<input type="password" id="inputPassword" placeholder="Enter Password">
+			<span id="showPassword">
+				<ion-icon name="eye-outline"></ion-icon>
+				<ion-icon name="eye-off-outline"></ion-icon>
+			</span>
+		</div>
+		<div class="signIn">
+			<button>Sign In</button>
+		</div>
+		<div class="forgot-password">
+            <a href="#" onclick="openForgotPasswordPopup()">Forgot Password?</a>
+        </div>
+		</div>
+		
+	</div>
+	 <!-- The "Forgot Password" Popup -->
+	 <div class="popup" id="popup">
+        <div class="popup-content">
+            <span id="closePopupBtn" class="close-btn" onclick="closeForgotPasswordPopup()">&times;</span>
+            <h2>Forgot Password</h2>
+            <form id="forgotPasswordForm">
+                <div class="form-control">
+                    <label for="forgotEmail">Email:</label>
+                    <input type="email" id="forgotEmail" name="forgotEmail" required>
+                </div>
+                <div class="form-control">
+                    <button type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+	
+	<script src="login/login.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        function openForgotPasswordPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'block';
+        }
+
+        function closeForgotPasswordPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

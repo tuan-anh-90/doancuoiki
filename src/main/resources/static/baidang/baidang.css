@@ -1,0 +1,70 @@
+.bo {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin-left: 100px;
+    margin-right: 10px;
+}
+
+.thehr {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.daubo {
+    margin-left: 20px;
+}
+
+.daubo h2 {
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    /* Xếp từ trên xuống dưới */
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.con-container {
+    flex-direction: row !important;
+    background-color: #c8c6c6;
+    display: flex;
+    border-radius: 20px;
+}
+
+/* Ben trai */
+.bentrai {
+    width: 200px;
+    padding: 10px;
+}
+
+.bentrai .post-image {
+    height: 150px;
+    width: 200px;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+/* Ben phai */
+.benphai {
+    flex: 1;
+    width: 65%;
+    padding: 10px;
+}
+
+/* Style cho tiêu đề, nội dung và ngày đăng */
+.benphai h1 {
+    color: #333;
+}
+
+.benphai p {
+    line-height: 1.6;
+    color: #555;
+}
+
+.benphai .ngaydang {
+    color: #777;
+}

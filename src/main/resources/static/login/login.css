@@ -1,0 +1,102 @@
+html,
+body {
+    --border-color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    color: #222;
+    font-family: Poppins;
+}
+
+.container {
+    height: 100%;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 400px;
+    background-color: #9bc0d8 !important;
+    height: 70%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-header {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.social_icon span {
+    font-size: 60px;
+    margin-left: 10px;
+    color: #ffc312;
+}
+
+.social_icon span:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.input-group-prepend span {
+    color: #777;
+    display: flex;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 20px;
+    font-family: Poppins;
+    outline: none;
+}
+
+.remember {
+    color: white;
+    margin-top: 10px;
+}
+
+.remember input {
+    margin-left: 5px;
+}
+
+.login_btn {
+    background-color: #3d5868;
+    width: 100%;
+    border-radius: 10px;
+    height: 50px;
+    border: none;
+    font-family: Poppins;
+    box-shadow: 0 10px 20px #7da6be;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    transition: 0.5s;
+    color: #fff;
+}
+
+.login_btn:active {
+    box-shadow: none;
+    transform: translateY(5px);
+}
+
+.links {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.links a {
+    margin-left: 4px;
+}

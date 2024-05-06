@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>User|Calendar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="css/search.css" rel="stylesheet" type="text/css" /> -->
+    <link href="icons/style.css" rel="stylesheet" type="text/css" />
+    <link href="js/daypilot/popuphome.css" rel="stylesheet" type="text/css" />
+    <!-- tabbar -->
+    <th:block th:replace="boxtabbarUser ::  link-css"></th:block>
+    <!--     <th:block th:replace="boxtabbarUser ::  jquery-cdn"></th:block> 
+ -->
+  </head>
+  <body>
+    <th:block th:replace="boxtabbarUser ::  header"></th:block>
+    <div class="boxHome">
+      <!-- <span class="Name" id="userNameDisplay">Nội dung của lớp Name</span> -->
+      <div
+        class="main"
+        style="
+          display: flex;
+          margin-left: 100px;
+          margin-right: 20px;
+          padding-top: 10px;
+        "
+      >
+        <div style="margin-right: 10px">
+          <div id="nav"></div>
+          <!-- select>
+            <option value="searchByName">Tìm theo tên</option>
+            <option value="searchByCategory">Tìm theo danh mục</option>
+          </select>  -->
+        </div>
+
+        <div class="right">
+          <div class="toolbar"></div>
+          <div id="dp"></div>
+        </div>
+        <style>
+          .previous,
+          .next {
+            margin-bottom: 20px;
+          }
+        </style>
+      </div>
+
+      <!-- //popup create -->
+      <div class="popup-create">
+        <div class="overlay"></div>
+        <div id="event-popup" class="event-popup" style="display: none">
+          <!-- Nội dung thanh popup -->
+          <label for="event-type">Type of work:</label>
+          <input type="text" id="event-type" />
+
+          <label for="event-location">Location:</label>
+          <input type="text" id="event-location" />
+
+          <label for="event-notes">Note:</label>
+          <textarea id="event-notes"></textarea>
+
+          <button id="create-event-button">Create</button>
+          <button id="cancel-event-button">Cancel</button>
+        </div>
+      </div>
+
+      <!-- popup view  -->
+      <div class="popup-view">
+        <div class="overlay-view"></div>
+        <div
+          id="event-popup-view"
+          class="event-popup-view"
+          style="display: none"
+        >
+          <!-- Nội dung thanh popup -->
+          <label for="event-ten">Tên công việc:</label>
+          <input type="text" id="event-ten" />
+
+          <label for="event-start">Time start:</label>
+          <input type="text" id="event-start" />
+
+          <label for="event-end">Time end:</label>
+          <input type="text" id="event-end" />
+
+          <button id="cancel-view-button">Cancel</button>
+          <button id="delete-event-button">Delete</button>
+        </div>
+      </div>
+
+      <!-- DayPilot library -->
+      <script src="js/daypilot/daypilot-all.min.js"></script>
+
+      <script>
+        const datePicker = new DayPilot.Navigator("nav", {
+          showMonths: 2,
+          skipMonths: 2,
+          selectMode: "week",
+          onTimeRangeSelected: (args) => {
+            dp.startDate = args.day;
+            dp.update();
+            dp.events.load("/api/events");
+          },
+        });
+        datePicker.init();
+
+        const dp = new DayPilot.Calendar("dp", {
+          viewType: "Week",
+          onTimeRangeSelected: async (args) => {
+            //XỬ LÝ ẨN HIỆN THANH POPUP
+            //gọi 2 class
+            const overlay = document.querySelector(".overlay");
+            const eventPopup = document.querySelector(".event-popup");
+            //block hiện nền xám và popup
+            overlay.style.display = "block";
+            eventPopup.style.display = "block";
+
+            document
+              .getElementById("cancel-event-button")
+              .addEventListener("click", hidePopup);
+            document
+              .querySelector(".overlay")
+              .addEventListener("click", hidePopup);
+
+            function hidePopup() {
+              const overlay = document.querySelector(".overlay");
+              const eventPopup = document.querySelector(".event-popup");
+
+              overlay.style.display = "none";
+              eventPopup.style.display = "none";
+            }
+            // Show the event popup
+            eventPopup.style.display = "block";
+
+            // Handle the create event button click
+            const createEventButton = document.getElementById(
+              "create-event-button"
+            );
+            createEventButton.addEventListener("click", async () => {
+              createEventButton.disabled = true;
+
+              const eventType = document.getElementById("event-type").value;
+              const eventLocation =
+                document.getElementById("event-location").value;
+              const eventNotes = document.getElementById("event-notes").value;
+
+              const eventData = {
+                start: args.start,
+                end: args.end,
+                text: eventType,
+                eventLocation: eventLocation,
+                eventNotes: eventNotes,
+              };
+
+              try {
+                // Gửi dữ liệu sự kiện tới máy chủ và thêm sự kiện vào lịch trình
+                const { data } = await DayPilot.Http.post(
+                  "/api/events/create",
+                  eventData
+                );
+                if (data) {
+                  overlay.style.display = "none";
+                  eventPopup.style.display = "none";
+                  createEventButton.disabled = false;
+
+                  // Tải lại trang sau khi đã thêm sự kiện thành công
+                  location.reload();
+                } else {
+                  console.error("Lỗi khi tạo sự kiện");
+                }
+              } catch (error) {
+                console.error("Lỗi khi gửi yêu cầu tạo sự kiện:", error);
+                createEventButton.disabled = false;
+              }
+            });
+
+            // Handle the cancel event button click
+            const cancelEventButton = document.getElementById(
+              "cancel-event-button"
+            );
+            cancelEventButton.addEventListener("click", () => {
+              // Close the event popup
+              eventPopup.style.display = "none";
+            });
+
+            // Clear the selection
+            dp.clearSelection();
+          },
+          onEventMove: async (args) => {
+            const params = {
+              id: args.e.id(),
+              start: args.newStart,
+              end: args.newEnd,
+            };
+            const { data } = await DayPilot.Http.post(
+              "/api/events/move",
+              params
+            );
+            console.log("Event moved");
+          },
+          onEventResize: async (args) => {
+            const params = {
+              id: args.e.id(),
+              start: args.newStart,
+              end: args.newEnd,
+            };
+            const { data } = await DayPilot.Http.post(
+              "/api/events/move",
+              params
+            );
+            console.log("Event resized");
+          },
+
+          //Bật view popup
+          onEventClick: (args) => {
+            //Định dạng date time
+            function formatDateTime(dateTime) {
+              const options = {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              };
+              return new Intl.DateTimeFormat("vi-VN", options).format(
+                new Date(dateTime)
+              );
+            }
+
+            //lấy thông tin popup
+            const overlay = document.querySelector(".overlay-view");
+            const eventPopup = document.querySelector(".event-popup-view");
+
+            // Lấy thông tin của sự kiện
+            const eventName = args.e.data.text;
+            const eventStart = args.e.start();
+            const eventEnd = args.e.end();
+
+            // Hiển thị thông tin của sự kiện trong popup
+            document.getElementById("event-ten").value = eventName;
+            document.getElementById("event-start").value =
+              formatDateTime(eventStart); //định dạng format
+            document.getElementById("event-end").value =
+              formatDateTime(eventEnd); //định dạng format
+
+            // Hiển thị popup
+            overlay.style.display = "block";
+            eventPopup.style.display = "block";
+
+            // Handle the delete event button click in popup view
+            const deleteEventButton = document.getElementById(
+              "delete-event-button"
+            );
+            deleteEventButton.addEventListener("click", async () => {
+              // Lấy id của sự kiện
+              const eventId = args.e.id();
+              // Gọi hàm xóa sự kiện trong app
+              app.deleteEvent(args.e);
+              // Đóng popup
+              overlay.style.display = "none";
+              eventPopup.style.display = "none";
+            });
+
+            //Sự kiện đóng popup view
+            const cancelEventButton =
+              document.getElementById("cancel-view-button");
+            cancelEventButton.addEventListener("click", async () => {
+              // Đóng popup
+              overlay.style.display = "none";
+              eventPopup.style.display = "none";
+            });
+          },
+
+          onBeforeEventRender: (args) => {
+            args.data.barColor = args.data.color;
+            args.data.areas = [
+              {
+                top: 2,
+                right: 2,
+                icon: "icon-triangle-down",
+                visibility: "Visible",
+                action: "ContextMenu",
+                style:
+                  "font-size: 12px; background-color: #f9f9f9; border: 1px solid #ccc; padding: 2px 2px 0px 2px; cursor:pointer;",
+              },
+            ];
+          },
+
+          contextMenu: new DayPilot.Menu({
+            items: [
+              {
+                text: "Meeting",
+                icon: "icon icon-blue",
+                color: "#1066a8",
+                onClick: (args) =>
+                  app.updateColor(args.source, args.item.color),
+              },
+              {
+                text: "Bussiness trip",
+                icon: "icon icon-green",
+                color: "#6aa84f",
+                onClick: (args) =>
+                  app.updateColor(args.source, args.item.color),
+              },
+              {
+                text: "Things to do",
+                icon: "icon icon-yellow",
+                color: "#f1c232",
+                onClick: (args) =>
+                  app.updateColor(args.source, args.item.color),
+              },
+              {
+                text: "Holiday",
+                icon: "icon icon-red",
+                color: "#cc0000",
+                onClick: (args) =>
+                  app.updateColor(args.source, args.item.color),
+              },
+            ],
+          }),
+        });
+        dp.init();
+
+        const app = {
+          init: () => {
+            dp.events.load("/api/events");
+          },
+          deleteEvent: async (e) => {
+            const confirmation = await DayPilot.Modal.confirm(
+              "Do you want to delete this event?"
+            );
+            if (confirmation.canceled) {
+              return;
+            }
+            const params = {
+              id: e.id(),
+            };
+            const { data } = await DayPilot.Http.post(
+              "/api/events/delete",
+              params
+            );
+            dp.events.remove(e);
+            console.log("Event deleted");
+            window.location.reload();
+          },
+          updateColor: async (e, color) => {
+            const params = {
+              id: e.id(),
+              color: color,
+            };
+            const { data } = await DayPilot.Http.post(
+              "/api/events/setColor",
+              params
+            );
+            e.data.color = color;
+            dp.events.update(e);
+            console.log("Color updated");
+          },
+        };
+        app.init();
+
+        // // Xử lý sự kiện cho nút "Previous"
+        // const previousButton = document.getElementById("previous");
+        // previousButton.addEventListener("click", () => {
+        //   const current = datePicker.selectionDay;
+        //   datePicker.select(current.addDays(-7));
+        // });
+
+        // // Xử lý sự kiện cho nút "Next"
+        // const nextButton = document.getElementById("next");
+        // nextButton.addEventListener("click", () => {
+        //   const current = datePicker.selectionDay;
+        //   datePicker.select(current.addDays(7));
+        // });
+      </script>
+    </div>
+  </body>
+</html>

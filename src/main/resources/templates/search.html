@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin|Search</title>
+    <link rel="stylesheet" type="text/css" href="timkiem/timkiem.css" />
+    <script src="timkiem/timkiem.js"></script>
+    <th:block th:replace="boxtabbarAdmin ::  link-css"></th:block>
+  </head>
+  <body>
+    <th:block th:replace="boxtabbarAdmin ::  header"></th:block>
+    <div class="box">
+      <div class="container">
+        <h1>Search Events</h1>
+        <div class="search-container">
+          <h3>Search by</h3>
+          <select id="searchType" onchange="changeInputType(this)">
+            <option value="userId">User ID</option>
+            <option value="date">Date</option>
+          </select>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by User ID or Date"
+          />
+          <button>Search</button>
+        </div>
+
+        <table id="calendarTable">
+          <thead>
+            <tr>
+              <th>User Id</th>
+              <th>Events</th>
+              <th>Ngày bắt đầu</th>
+              <th>Ngày kết thúc</th>
+            </tr>
+          </thead>
+          <tbody id="calendarList">
+            <!-- Dữ liệu người dùng sẽ được thêm sau bằng JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      function changeInputType(select) {
+        const searchInput = document.getElementById("searchInput");
+        if (select.value === "userId") {
+          searchInput.type = "text";
+          searchInput.placeholder = "Search by User ID";
+        } else if (select.value === "date") {
+          searchInput.type = "date";
+          searchInput.placeholder = "Search by Date";
+        }
+      }
+    </script>
+  </body>
+</html>

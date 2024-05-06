@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách đơn</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+      }
+      .form-container {
+        margin-bottom: 20px;
+      }
+      .table {
+        margin-bottom: 0;
+      }
+      .btn {
+        margin-top: 20px;
+      }
+      .modal {
+        margin-top: 60px;
+      }
+      .trang-thai-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+      .trang-thai-dang-xu-ly {
+        background-color: yellow;
+      }
+      .trang-thai-da-duyet {
+        background-color: green;
+      }
+      .trang-thai-da-huy {
+        background-color: red;
+      }
+      .table th:nth-child(1),
+      .table td:nth-child(1) {
+        width: 30%;
+      }
+      .table th:nth-child(2),
+      .table td:nth-child(2) {
+        width: 25%;
+      }
+      .table th:nth-child(3),
+      .table td:nth-child(3) {
+        width: 25%;
+      }
+      .table th:nth-child(4),
+      .table td:nth-child(4) {
+        width: 20%;
+      }
+      .table tbody tr:nth-child(odd) {
+        background-color: #f8f9fa; /* Màu nền nhạt */
+      }
+    </style>
+    <th:block th:replace="boxtabbarUser ::  link-css"></th:block>
+  </head>
+  <body>
+    <th:block th:replace="boxtabbarUser ::  header"></th:block>
+    <div class="container">
+      <div class="form-container">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#createDonModal"
+        >
+          Tạo đơn mới
+        </button>
+      </div>
+
+      <h2>Danh sách đơn</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Lý do</th>
+            <th scope="col">Từ ngày</th>
+            <th scope="col">Đến ngày</th>
+            <th scope="col">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody id="donList">
+          <!-- Danh sách đơn sẽ được thêm vào đây bằng JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Tạo Đơn Mới -->
+    <div
+      class="modal fade"
+      id="createDonModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="createDonModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createDonModalLabel">Tạo đơn mới</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="createDonForm">
+              <div class="form-group">
+                <label for="tuNgay">Từ ngày</label>
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="tuNgay"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="denNgay">Đến ngày</label>
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="denNgay"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="lyDo">Lý do</label>
+                <input type="text" class="form-control" id="lyDo" required />
+              </div>
+              <button type="submit" class="btn btn-primary">Tạo</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function formatDateTime(dateTime) {
+        try {
+          const options = {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          };
+
+          const formattedDate = new Intl.DateTimeFormat(
+            "vi-VN",
+            options
+          ).format(new Date(dateTime));
+
+          if (formattedDate !== "Invalid Date") {
+            return formattedDate;
+          } else {
+            throw new Error("Invalid date value");
+          }
+        } catch (error) {
+          console.error("Error formatting date:", error.message);
+          return "Invalid Date";
+        }
+      }
+
+      $(document).ready(function () {
+        // Lấy email của người dùng đã đăng nhập
+        var loggedInUserEmail = ""; // Đảm bảo rằng biến này đã được gán giá trị từ server hoặc bất kỳ nguồn dữ liệu nào khác
+
+        // Hiển thị danh sách đơn khi trang được tải
+        fetch("/api/dons/allByEmail?email=" + loggedInUserEmail) // Sử dụng API để lấy danh sách đơn dựa trên email đã đăng nhập
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((don, index) => {
+              $("#donList").append(`
+                          <tr>
+                              <td>${don.lyDo}</td>
+                              <td>${formatDateTime(don.tuNgay)}</td>
+                              <td>${formatDateTime(don.denNgay)}</td>
+                              <td><span class="trang-thai-badge ${
+                                don.trangThaiClass
+                              }">${don.trangThai}</span></td>
+                          </tr>
+                      `);
+            });
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+
+        // Gửi yêu cầu tạo đơn khi form được submit
+        $("#createDonForm").submit(function (event) {
+          event.preventDefault();
+          var lyDo = $("#lyDo").val();
+          var tuNgay = $("#tuNgay").val();
+          var denNgay = $("#denNgay").val();
+          var trangThai = $("#trangThai").val();
+          var formData = {
+            tuNgay: tuNgay,
+            denNgay: denNgay,
+            lyDo: lyDo,
+            trangThai: "Đang xử lý",
+          };
+          fetch("/api/dons/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              $("#createDonModal").modal("hide");
+              $("#donList").append(`
+                          <tr>
+                              <td>${data.lyDo}</td>
+                              <td>${formatDateTime(data.tuNgay)}</td>
+                              <td>${formatDateTime(data.denNgay)}</td>
+                              <td><span class="trang-thai-badge ${
+                                data.trangThaiClass
+                              }">${data.trangThai}</span></td>
+                          </tr>
+                      `);
+              $("#createDonForm")[0].reset();
+            })
+            .catch((error) => console.error("Error creating don:", error));
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+body {
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    background-color: #8e9aaf;
+    height: 60px;
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.texttimkiem {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: width 0.3s ease-in-out;
+    height: 20px !important;
+}
+
+.btntimkiem {
+    background-color: #4CAF50;
+    color: white;
+    width: 50px;
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-left: auto;
+}
+
+.btntimkiem i {
+    font-size: 20px;
+}
+
+.btntimkiem:hover {
+    background-color: #45a049;
+}
+
+.logout-button button {
+    width: 150px;
+    background-color: #ff5555;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.logout-button i {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.logout-button button:hover {
+    background-color: #d9534f;
+}
+
+.boxtabbar {
+    width: 80px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    padding: 0 4px;
+}
+
+.tabbar {
+    width: 80px;
+    height: 100vh;
+    background: #8e9aaf;
+    padding: 0 4px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.tabbar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.tabbar ul li {
+    position: relative;
+    flex-grow: 1;
+    margin: 20px 0;
+}
+
+.tabbar ul li a {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+.tabbar ul li a {
+    height: 40px;
+}
+
+.tabbar img {
+    border-radius: 50%;
+    margin-top: -10px;
+    zoom: 3;
+}
+
+.tabbar ul li a i {
+    font-size: 30px;
+}
+
+.tabbar ul li a strong {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 8px;
+
+
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #8e9aaf;
+    }
+
+    .search-bar {
+        display: flex;
+        gap: 10px;
+        margin-left: auto;
+    }
+
+    .logout-button button {
+        background-color: #ff5555;
+        color: #fff;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .boxtabbar {
+        width: 80px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #fff;
+        padding: 0 4px;
+    }
+
+    .tabbar {
+        width: 80px;
+        height: 100vh;
+        background: #8e9aaf;
+        padding: 0 4px;
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
+
+    .tabbar ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .tabbar ul li {
+        position: relative;
+        flex-grow: 1;
+        margin: 20px 0;
+    }
+
+    .tabbar ul li a {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .tabbar ul li a img {
+        height: 40px;
+    }
+
+    .tabbar ul li a i {
+        font-size: 20px;
+    }
+
+    .tabbar ul li a strong {
+        font-size: 10px;
+        font-weight: 600;
+        margin-top: 8px;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .tabbar ul li.active a strong {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    .tabbar ul li a:hover strong {
+        color: #6C7486;
+    }
+
+    ;
+    transition: all 0.3s ease;
+}
+
+.tabbar ul li.active a strong {
+    opacity: 0;
+    transform: scale(0.6);
+}
+
+.tabbar ul li a:hover strong {
+    color: #3d5868;
+}

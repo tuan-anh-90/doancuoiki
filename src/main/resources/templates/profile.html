@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/profile/profile.css" />
+    <th:block th:replace="boxtabbarUser ::  link-css"></th:block>
+    <script src="profile/profile.js"></script>
+    <title>User|Profile</title>
+  </head>
+  <body>
+    <th:block th:replace="boxtabbarUser ::  header"></th:block>
+    <div class="profilecon" id="settings" ontouchstart>
+      <input checked class="nav" name="nav" type="radio" />
+      <span class="nav">Profile</span>
+      <main class="content">
+        <section id="profile">
+          <form>
+            <ul>
+              <li class="large padding avatar">
+                <span
+                  id="avatar"
+                  style="
+                    background-image: url('https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-HD-Image.png');
+                  "
+                ></span>
+                <div>
+                  <fieldset type="text" class="material-checkbox" id="name">
+                    Name
+                  </fieldset>
+                  <fieldset type="text" class="material-checkbox" id="maNV">
+                    Id User
+                  </fieldset>
+                </div>
+              </li>
+              <li>
+                <fieldset class="material">
+                  <div>
+                    <input required type="email" id="email" />
+                    <label>Email:</label>
+                    <hr />
+                  </div>
+                </fieldset>
+              </li>
+              <li>
+                <fieldset class="material">
+                  <div>
+                    <input required type="text" id="gioiTinh" />
+                    <label>Sex:</label>
+                    <hr />
+                  </div>
+                </fieldset>
+              </li>
+              <li>
+                <fieldset class="material">
+                  <div>
+                    <input required type="text" id="chucVu" />
+                    <label>Position:</label>
+                    <hr />
+                  </div>
+                </fieldset>
+              </li>
+              <li>
+                <fieldset class="material">
+                  <div>
+                    <input required type="text" id="loaiTaiKhoan" />
+                    <label>Account Type:</label>
+                    <hr />
+                  </div>
+                </fieldset>
+              </li>
+            </ul>
+          </form>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

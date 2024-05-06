@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  </head>
+  <body>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora");
+
+      body {
+        background: #cbc0d3;
+      }
+
+      /* div box styling */
+      .container {
+        margin: auto;
+        width: 650px;
+        height: 550px;
+        position: relative;
+      }
+
+      .welcome {
+        background: #f6f6f6;
+        width: 650px;
+        height: 415px;
+        position: absolute;
+        top: 25%;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .pinkbox {
+        position: absolute;
+        top: -10%;
+        left: 5%;
+        background: #8e9aaf;
+        width: 320px;
+        height: 500px;
+        border-radius: 5px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease-in-out;
+        z-index: 2;
+      }
+
+      .nodisplay {
+        display: none;
+        transition: all 0.5s ease;
+      }
+
+      .leftbox,
+      .rightbox {
+        position: absolute;
+        width: 50%;
+        transition: 1s all ease;
+      }
+
+      .leftbox {
+        left: -2%;
+      }
+
+      .rightbox {
+        right: -2%;
+      }
+
+      /* font & button styling */
+      h1 {
+        font-family: "Open Sans", sans-serif;
+        text-align: center;
+        margin-top: 95px;
+        text-transform: uppercase;
+        color: #f6f6f6;
+        font-size: 2em;
+        letter-spacing: 8px;
+      }
+
+      .title {
+        font-family: "Lora", serif;
+        color: #8e9aaf;
+        font-size: 1.8em;
+        line-height: 1.1em;
+        letter-spacing: 3px;
+        text-align: center;
+        font-weight: 300;
+        margin-top: 20%;
+      }
+
+      .desc {
+        margin-top: -8px;
+        font-size: 8px;
+      }
+
+      .account {
+        margin-top: 45%;
+        font-size: 10px;
+      }
+
+      p {
+        font-family: "Open Sans", sans-serif;
+        font-size: 0.7em;
+        letter-spacing: 2px;
+        color: #8e9aaf;
+        text-align: center;
+      }
+
+      span {
+        color: #eac7cc;
+      }
+
+      .flower {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        top: 46%;
+        left: 29%;
+        opacity: 0.7;
+      }
+
+      .smaller {
+        width: 90px;
+        height: 100px;
+        top: 48%;
+        left: 38%;
+        opacity: 0.9;
+      }
+
+      button {
+        padding: 12px;
+        font-family: "Open Sans", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 11px;
+        border-radius: 10px;
+        margin: auto;
+        outline: none;
+        display: block;
+      }
+
+      button:hover {
+        background: #3d5868;
+        color: #f6f6f6;
+        transition: background-color 1s ease-out;
+      }
+
+      .button {
+        margin-top: 3%;
+        background: #f6f6f6;
+        color: #3d5868;
+        border: solid 1px #eac7cc;
+      }
+
+      /* form styling */
+      form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 7px;
+      }
+
+      .more-padding {
+        padding-top: 35px;
+      }
+
+      .more-padding input {
+        padding: 12px;
+      }
+
+      .more-padding .submit {
+        margin-top: 45px;
+      }
+
+      .submit {
+        margin-top: 25px;
+        padding: 12px;
+        border-color: #3d5868;
+      }
+
+      .submit:hover {
+        background: #cbc0d3;
+        border-color: #bfb1c9;
+      }
+
+      input {
+        background: #3d5868;
+        width: 65%;
+        height: 20px;
+        color: #ffffff;
+        border: none;
+        border-bottom: 1px solid rgba(246, 246, 246, 0.5);
+        padding: 9px;
+        margin: 7px;
+      }
+
+      input::placeholder {
+        color: #f6f6f6;
+        letter-spacing: 2px;
+        font-size: 1em;
+        font-weight: 100;
+        font-family: "Lora", sans-serif;
+      }
+
+      input:focus {
+        color: #e7ebed;
+        outline: none;
+        border-bottom: 1.2px solid rgba(206, 125, 136, 0.7);
+        font-size: 1em;
+        transition: 0.8s all ease;
+      }
+
+      input:focus::placeholder {
+        opacity: 0;
+      }
+
+      label {
+        font-family: "Open Sans", sans-serif;
+        color: #3d5868;
+        font-size: 0.8em;
+        letter-spacing: 1px;
+      }
+
+      .checkbox {
+        display: inline;
+        white-space: nowrap;
+        position: relative;
+        left: -60px;
+      }
+
+      input[type="checkbox"] {
+        width: 15px;
+        background: #3d5868;
+      }
+
+      .checkbox input[type="checkbox"]:checked + label {
+        color: #3d5868;
+        transition: 0.5s all ease;
+      }
+    </style>
+    <div class="container">
+      <div class="welcome">
+        <div class="pinkbox">
+          <div class="signup nodisplay">
+            <h1>FORGOT PASSWORD</h1>
+            <form id="forgotPasswordForm" autocomplete="off">
+              <input
+                type="email"
+                id="forgotEmail"
+                name="forgotEmail"
+                placeholder="Enter Email"
+                required
+              />
+              <button type="submit">Send</button>
+            </form>
+          </div>
+          <div class="signin">
+            <h1>sign in</h1>
+            <form
+              class="more-padding"
+              autocomplete="off"
+              action="/login"
+              method="post"
+            >
+              <input
+                type="email"
+                class="form-control"
+                name="username"
+                placeholder="Enter Email"
+              />
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                placeholder="Enter Password"
+              />
+              <div class="checkbox">
+                <input type="checkbox" id="remember" /><label for="remember"
+                  >Remember me</label
+                >
+              </div>
+              <button class="button">Login</button>
+            </form>
+          </div>
+        </div>
+        <div class="leftbox">
+          <h2 class="title">CALENDAR</h2>
+          <p class="desc">employee calendar management</p>
+          <img
+            class="flower smaller"
+            src="https://png.pngtree.com/png-clipart/20230507/original/pngtree-2024-green-and-black-calendar-with-unique-shape-png-image_9146337.png"
+            alt="1357d638624297b"
+            border="0"
+          />
+          <p class="account">Remembered your password?</p>
+          <button class="button" id="signin">Login</button>
+        </div>
+        <div class="rightbox">
+          <h2 class="title">CALENDAR</h2>
+          <p class="desc">employee calendar management</p>
+          <img
+            class="flower"
+            src="https://png.pngtree.com/png-clipart/20230507/original/pngtree-2024-green-and-black-calendar-with-unique-shape-png-image_9146337.png"
+          />
+          <p class="account">Don't remember your password?</p>
+          <button class="button" id="signup">Forgot Password</button>
+        </div>
+      </div>
+    </div>
+    <!-- ANIMATION LOGIN AND RESETPASS -->
+    <script>
+      function handleSignupClick() {
+        $(".pinkbox").css("transform", "translateX(80%)");
+        $(".signin").addClass("nodisplay");
+        $(".signup").removeClass("nodisplay");
+      }
+
+      function handleSigninClick() {
+        $(".pinkbox").css("transform", "translateX(0%)");
+        $(".signup").addClass("nodisplay");
+        $(".signin").removeClass("nodisplay");
+      }
+
+      $(document).ready(function () {
+        $("#signup").click(handleSignupClick);
+        $("#signin").click(handleSigninClick);
+      });
+    </script>
+    <!-- //RESET PASSWORD -->
+    <script>
+      async function sendResetPasswordEmail() {
+        const email = document.getElementById("forgotEmail").value;
+
+        try {
+          const apiUrl = `http://localhost:8081/api/reset-password/sendResetPasswordEmail?email=${email}`;
+          const response = await fetch(apiUrl, {
+            method: "POST", // Since your API might be configured to accept POST
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          console.log(response);
+          if (response.ok) {
+            alert("Đã gửi");
+          } else {
+            const errorMessage = await response.text();
+            alert("Có lỗi xảy ra: " + errorMessage);
+          }
+        } catch (error) {
+          console.error("Có lỗi xảy ra:", error);
+          alert("Có lỗi xảy ra khi gửi email đặt lại mật khẩu.");
+        }
+      }
+
+      document
+        .getElementById("forgotPasswordForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevents the form from submitting and refreshing the page
+          sendResetPasswordEmail();
+        });
+    </script>
+  </body>
+</html>

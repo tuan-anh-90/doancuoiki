@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="/note/noteaction.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <title>Notes</title>
+    <th:block th:replace="boxtabbarUser ::  link-css"></th:block>
+  </head>
+  <body>
+    <th:block th:replace="boxtabbarUser ::  header"></th:block>
+    <div class="note_container">
+      <button class="btncreate" onclick="toggleContent()">Create Note</button>
+
+      <div class="content_note hidden">
+        <form id="noteForm">
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Input title"
+          />
+          <label for="content">Content:</label>
+          <textarea
+            id="content"
+            name="content"
+            placeholder="Input content"
+          ></textarea>
+        </form>
+        <button type="button" id="saveButton">Lưu</button>
+      </div>
+      <div class="body_note" id="noteContainer">
+        <!-- Dynamic content will be added here using JavaScript -->
+      </div>
+    </div>
+    <script src="/note/createnote.js"></script>
+    <script src="/note/note.js"></script>
+    <script>
+      console.log();
+    </script>
+  </body>
+</html>

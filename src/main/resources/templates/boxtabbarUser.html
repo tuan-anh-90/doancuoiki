@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      th:fragment="link-css"
+      rel="stylesheet"
+      th:href="@{/tabbar/tabbaruser.css}"
+    />
+    <link
+      th:fragment="link-css"
+      rel="stylesheet"
+      th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css}"
+    />
+    <script
+      th:fragment="jquery-cdn"
+      th:src="https://code.jquery.com/jquery-3.6.4.min.js"
+    ></script>
+  </head>
+  <body>
+    <header th:fragment="header">
+      <div class="navbar">
+        <div class="logout-button">
+          <button type="button" id="logoutButton">
+            LogOut <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            var logoutButton = document.getElementById("logoutButton");
+
+            logoutButton.addEventListener("click", function () {
+              // Chuyển hướng đến trang login
+              window.location.href = "/logout";
+            });
+          });
+        </script>
+      </div>
+      <div class="classheard"></div>
+      <div class="classbody">
+        <div class="boxtabbar">
+          <nav class="tabbar">
+            <ul>
+              <li>
+                <a href="/homeuser">
+                  <img src="/img/logo.png" alt="Logo" style="height: 40px" />
+                </a>
+              </li>
+
+              <li>
+                <a href="/baidang">
+                  <i class="fa-solid fa-house"></i> <strong>Home</strong>
+                </a>
+              </li>
+              <li>
+                <a href="/homeuser">
+                  <i class="fa-solid fa-calendar-days"></i>
+                  <strong>Calenda</strong>
+                </a>
+              </li>
+              <li>
+                <a href="/don">
+                  <i class="fa-regular fa-note-sticky"></i>
+                  <strong>Form</strong>
+                </a>
+              </li>
+              <li>
+                <a href="/profile">
+                  <i class="fa-solid fa-id-card"></i> <strong>Profile</strong>
+                </a>
+              </li>
+              <li>
+                <a href="/changepassword">
+                  <i class="fa-solid fa-lock"></i> <strong>ChangePW</strong>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div th:insert="~{::{content}}">
+      <!-- noi dung trang con -->
+    </div>
+  </body>
+</html>

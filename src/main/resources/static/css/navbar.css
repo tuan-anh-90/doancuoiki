@@ -1,0 +1,188 @@
+
+header {
+    display: flex;
+    width: 100%;
+    margin: 0 1%;
+    background: radial-gradient(circle, #ec7edf 0%, #e9c4ef 100%);
+}
+.logo img{
+    width: 60px;
+    padding: 10px;
+}
+.navbar{
+    width: 100%;
+    color: #eee;
+    display: flex;
+    justify-content: right;
+    z-index: 2;
+}
+.navbar ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: inline-block;
+}
+.navbar .otherOption{
+    width: 35%;
+    text-align: right;
+}
+.navbar .menu{
+    width: 65%;
+    text-align: center;
+}
+.navbar li{
+    padding: 30px;
+    display: inline-block;
+    transition: 0.5s;
+    position: relative;
+}
+.navbar li:hover{
+    background-color: #d8b2dc!important;
+}
+.navbar .menu li ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 152px;
+    margin: 0;
+    padding: 0;
+    background: #ffffff22;
+    text-align: left;
+    display: none;
+}
+.navbar li:hover >ul{
+    display: block;
+}
+.navbar .menu ul li{
+    width: calc(100%-60px);
+    text-align: left;
+    display: block;
+}
+.navbar input{
+    display: none;
+}
+@media only screen and (max-width:767px){
+    .logo {
+        position: absolute;
+        right:0;
+        top:0;
+    }
+    .logo ing{
+        width:45px;
+    } 
+    .navbar{
+        position: fixed;
+        width:60vh;
+        background-color: #3D5868;
+        top:0;
+        left:0;
+        height:100vh;
+        display: block;
+        transition: 0.5s;
+        transform: translate(-100%,0);
+    }
+    .navbar .openNav{
+        display: block;
+        position: absolute;
+        left: 100%;
+        top:0;
+        width: 30px;
+        height: 30px;
+        background-color: #ffffff77;
+        padding: 10px;
+    }
+    .navbar .openNav span{
+        display: block;
+        background-color: #000;
+        width: 30px;
+        height: 3px;
+        margin: 5px 0;
+        transition: 1s; 
+    }
+    .navbar:has(input[name="openNav"]:checked){
+        transform: translate(0,0);
+    }
+    .navbar:has(input[name="openNav"]:checked) .openNav span:nth-child(2){
+        opacity: 0;
+        transition: 0s;
+    }
+    .navbar:has(input[name="openNav"]:checked) .openNav span:nth-child(1){
+        transform: rotate(45deg) translate(6px, 5px);
+    }
+    .navbar:has(input[name="openNav"]:checked) .openNav span:nth-child(3){
+        transform: rotate(-45deg) translate(6px, -5px);
+    }
+    .navbar li{
+        display: block;
+        position: unset;
+        border-bottom: 2px solid #384857;
+        font-weight: 500;
+    }
+    .navbar .otherOption,
+    .navbar .menu{
+        width: 100%;
+        text-align: left;
+    }
+    .navbar .menu li:hover{
+        background-color:unset !important;
+        border-left: 10px solid #5BB299;
+    }
+    .navbar .menu label{
+        display: block;
+        float: right;
+    }
+    .navbar .menu label i {
+        display: block;
+        transition: 1s;
+        margin-right: 0;
+    }
+    .navbar label:has(input:checked) ~ ul{
+        max-height: 50vh;
+    }
+    .navbar .menu li ul{
+        width: 100%;
+        max-height: 0;
+        position: unset;
+        background-color: unset;
+        display: block;
+        overflow: hidden;
+        transition: 1s;
+        opacity: 1;
+        border-left: 1px solid #ffffff22;
+    }
+    .navbar li li:hover{
+        border-left:unset !important;
+    }
+    .navbar li li{
+        border-bottom: 0;
+        padding: 10px 10px 10px 50px;
+        position: relative;
+        color: #7f79a1;
+    }
+    .navbar li li::before{
+        position: absolute;
+        top:20px;
+        left: 0;
+        width: 30px;
+        height: 100%;
+        content: '';
+        border-top: 1px solid #ffffff22;
+    }
+    .navbar li li::after{
+        position: absolute;
+        top:18px;
+        left: 30px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        content: '';
+        background:  #ffffff22;
+    }
+    .navbar label input:checked ~i{
+        transform: rotate(180deg);
+    }
+    .navbar i{
+        display: unset;
+        margin-right: 20px;
+    }
+}

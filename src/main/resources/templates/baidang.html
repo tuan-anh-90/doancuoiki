@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link href="/baidang/baidang.css" rel="stylesheet" type="text/css" />
+    <th:block th:replace="boxtabbarUser ::  link-css"></th:block>
+    <title>User|Home</title>
+  </head>
+  <body>
+    <th:block th:replace="boxtabbarUser ::  header"></th:block>
+    <div class="bo">
+      <div class="daubo">
+        <h2>
+          <i class="fa-regular fa-bell"></i> Tài liệu, thông tin, thông báo của
+          công ty
+        </h2>
+      </div>
+      <hr class="thehr" />
+      <div id="postsContainer" class="container">
+        <!-- <div class="con-container">
+          <div class="bentrai">
+            <img class="post-image" />
+          </div>
+          <div class="benphai">
+            <h1 class="tieude"></h1>
+            <p class="noidung"></p>
+            <p class="ngaydang"></p>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <script src="/baidang/baidang.js"></script>
+  </body>
+</html>
